@@ -10,6 +10,12 @@ export default defineNuxtConfig({
 
   modules: ['@pinia/nuxt'],
 
+  app: {
+    rootAttrs: {
+      id: 'app',
+    },
+  },
+
   vite: {
     css: {
       preprocessorOptions: {
