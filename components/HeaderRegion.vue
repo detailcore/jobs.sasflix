@@ -11,6 +11,8 @@ defineProps<{ text: String }>()
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
+  line-height: 100%;
+  margin-bottom: 3.625rem; //58px
   color: var(--ui-accent-primary);
 }
 </style>
