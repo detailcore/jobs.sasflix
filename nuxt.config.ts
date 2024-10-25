@@ -6,9 +6,23 @@ export default defineNuxtConfig({
   ssr: true,
   telemetry: false,
 
+  css: ['~/assets/styles/index.scss'],
+
   modules: ['@pinia/nuxt'],
 
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          additionalData: `
+            @use "@/assets/styles/_vars.scss" as *;
+            @use "@/assets/styles/_fonts.scss" as *;
+            @use "@/assets/styles/_extends.scss" as *;
+          `,
+        },
+      },
+    },
     plugins: [svgLoader()],
   },
 })

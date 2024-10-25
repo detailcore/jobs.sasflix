@@ -1,0 +1,16 @@
+body {
+  font-size: 16px;
+  font-family: 'SF Pro Text', serif;
+}
+
+h1 {
+  @extend %text-h1;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 676px;
+  min-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
