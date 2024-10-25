@@ -17,6 +17,7 @@ export default defineNuxtConfig({
           api: 'modern-compiler',
           additionalData: `
             @use "@/assets/styles/_vars.scss" as *;
+            @use "@/assets/styles/_reset.scss" as *;
             @use "@/assets/styles/_fonts.scss" as *;
             @use "@/assets/styles/_extends.scss" as *;
           `,
