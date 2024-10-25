@@ -27,6 +27,8 @@ defineProps<{ post: IPost }>()
       </div>
     </div>
   </article>
+
+  <PostComments v-if="$route.name === 'posts-id'" />
 </template>
 
 <style lang="scss">

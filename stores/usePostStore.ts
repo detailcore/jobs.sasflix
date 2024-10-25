@@ -3,6 +3,7 @@ export const usePostStore = defineStore('postStore', () => {
    * State
    */
   const posts = ref<IPost[]>([])
+  const comments = ref<IComment[]>([])
 
   /**
    * Getters
@@ -12,6 +13,44 @@ export const usePostStore = defineStore('postStore', () => {
    * Setters
    */
   const setReaction = (id: number, type: 'likes' | 'dislikes') => {
+    posts.value.find((item) => {
+      if (item.id === id) {
+        if (item.reactions.state === 0 || item.reactions?.state === undefined)
+          item.reactions[type]++
+
+        if (item.reactions.state === 1 && type === 'likes') {
+          item.reactions.likes--
+          item.reactions.state = 0
+          return
+        }
+
+        if (item.reactions.state === 1 && type === 'dislikes') {
+          item.reactions.likes--
+          item.reactions.dislikes++
+          item.reactions.state = -1
+          return
+        }
+
+        if (item.reactions.state === -1 && type === 'dislikes') {
+          item.reactions.dislikes--
+          item.reactions.state = 0
+          return
+        }
+
+        if (item.reactions.state === -1 && type === 'likes') {
+          item.reactions.likes++
+          item.reactions.dislikes--
+          item.reactions.state = 1
+          return
+        }
+
+        item.reactions.state = type === 'likes' ? 1 : -1
+      }
+    })
+  }
+  // удаление комментария по идентификатору
+  const setRemoveCommentById = (id: number) => {
+    comments.value = comments.value.filter((item) => item.id !== id)
   }
 
   /**
@@ -44,11 +83,30 @@ export const usePostStore = defineStore('postStore', () => {
     }
   }
 
+  const fetchCommentsById = async (postId: number) => {
+    const { data, error } = await useFetch<IFetchComments>(
+      `https://dummyjson.com/posts/${postId}/comments`,
+      {
+        pick: ['comments'],
+      },
+    )
+
+    if (error.value) {
+      console.warn(error.value)
+    } else {
+      comments.value = data.value!.comments ?? []
+    }
+  }
+
   return {
     posts,
+    comments,
 
     setReaction,
+    setRemoveCommentById,
+
     fetchPosts,
     fetchPostById,
+    fetchCommentsById,
   }
 })
