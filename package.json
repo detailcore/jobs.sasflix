@@ -19,6 +19,9 @@
     "vue": "latest",
     "vue-router": "latest"
   },
+  "devDependencies": {
+    "vite-svg-loader": "^5.1.0"
+  },
   "overrides": {
     "vue": "latest"
   }
